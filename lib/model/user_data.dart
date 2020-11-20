@@ -1,7 +1,9 @@
+import 'package:ceehacks/model/user_types.dart';
+
 class UserData {
-  String type;
+  UserType type;
 
   UserData.fromMap(Map<dynamic, dynamic> data) {
-    type = data["type"];
+    type = UserTypeHelper.fromString(data["type"]);
   }
 }
