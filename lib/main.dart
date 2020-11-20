@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ceehacks/main_overview_page.dart';
 
+import 'package:ceehacks/auth/auth_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         accentColor: Colors.red,
       ),
-      home: MainOverviewPage(),
+      home: AuthPage(),
     );
   }
 }
