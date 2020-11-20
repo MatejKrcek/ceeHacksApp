@@ -1,8 +1,11 @@
 import 'package:ceehacks/pages/root_page.dart';
+import 'package:ceehacks/pages/select_role_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+//! home: RootPage(),
+import 'package:ceehacks/pages/main_menu_layout_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -22,12 +25,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Piller',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF035AA6),
+        accentColor: Colors.deepOrange,
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RootPage(),
+      home: SelectRolePage(),
     );
   }
 }
