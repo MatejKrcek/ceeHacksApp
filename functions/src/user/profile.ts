@@ -20,8 +20,9 @@ export async function changeUserType(data: any, context: CallableContext ) {
   if (!uid) {
     throw Error("missing uid");
   } else {
-    await firestore().collection("user").doc(uid).update({
+    await firestore().collection("users").doc(uid).update({
       type: data.type,
     });
+    return true;
   }
 }

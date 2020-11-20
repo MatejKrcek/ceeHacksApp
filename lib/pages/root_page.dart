@@ -1,6 +1,6 @@
 import 'package:ceehacks/pages/auth/auth_page.dart';
-import 'package:ceehacks/pages/home_page.dart';
-import 'package:ceehacks/pages/pick_page.dart';
+import 'package:ceehacks/pages/main_menu_layout_page.dart';
+import 'package:ceehacks/pages/select_role_page.dart';
 import 'package:ceehacks/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +31,9 @@ class RootPage extends StatelessWidget {
                 return _buildWaitingScreen();
               } else {
                 if (auth.userData.type == null) {
-                  return PickPage();
+                  return SelectRolePage();
                 } else {
-                  return HomePage();
+                  return MainMenuLayoutPage();
                 }
               }
               break;
