@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 
 //! home: RootPage(),
 import 'package:ceehacks/pages/main_menu_layout_page.dart';
+import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SelectRolePage(),
+      home: DoctorVerifyPage(),
     );
   }
 }
