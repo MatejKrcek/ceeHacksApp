@@ -1,9 +1,18 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+admin.initializeApp();
+
+import * as users from "./user";
+
+/**
+ * Generate profile of user
+ */
+export const userProfileGeneration = functions.auth
+.user()
+.onCreate(async (user, cont) => await users.prepareProfile(user, cont));
+
+/**
+ * Change typ of user
+ */
+export const userChangeType = functions.https.onCall(async (data, cont) => await users.changeUserType(data, cont));

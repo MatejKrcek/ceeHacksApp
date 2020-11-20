@@ -1,22 +1,33 @@
+import 'package:ceehacks/pages/root_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ceehacks/main_overview_page.dart';
+import 'package:flutter/services.dart';
 
-import 'package:ceehacks/auth/auth_page.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Color of the status bar
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      title: 'Piller',
       theme: ThemeData(
-        primaryColor: Colors.blue,
-        accentColor: Colors.red,
+        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AuthPage(),
+      home: RootPage(),
     );
   }
 }

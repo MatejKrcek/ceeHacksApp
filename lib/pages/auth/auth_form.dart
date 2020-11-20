@@ -8,9 +8,9 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  var _name = '';
-  var _email = '';
-  var _password = '';
+  // var _name = '';
+  // var _email = '';
+  // var _password = '';
   bool _showLoginVersion = false;
   double _cardHeight = 430;
 
@@ -76,6 +76,7 @@ class _AuthFormState extends State<AuthForm>
                           if (value.isEmpty || value.length < 2) {
                             return 'Please enter a valid name';
                           }
+
                           return null;
                         },
                         decoration: InputDecoration(
@@ -84,7 +85,7 @@ class _AuthFormState extends State<AuthForm>
                           icon: Icon(Icons.person),
                         ),
                         onSaved: (value) {
-                          _name = value;
+                          // _name = value;
                         },
                       ),
                     TextFormField(
@@ -98,6 +99,7 @@ class _AuthFormState extends State<AuthForm>
                             !value.contains('@')) {
                           return 'Please enter a valid email address';
                         }
+
                         return null;
                       },
                       decoration: InputDecoration(
@@ -106,7 +108,7 @@ class _AuthFormState extends State<AuthForm>
                         icon: Icon(Icons.email),
                       ),
                       onSaved: (value) {
-                        _email = value;
+                        // _email = value;
                       },
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(_passwordFocusNode);
@@ -124,6 +126,7 @@ class _AuthFormState extends State<AuthForm>
                         if (value.isEmpty || value.length < 6) {
                           return 'Please enter a valid password';
                         }
+
                         return null;
                       },
                       decoration: InputDecoration(
@@ -132,7 +135,7 @@ class _AuthFormState extends State<AuthForm>
                         icon: Icon(Icons.lock),
                       ),
                       onSaved: (value) {
-                        _password = value;
+                        // _password = value;
                       },
                     ),
                     SizedBox(
@@ -161,14 +164,16 @@ class _AuthFormState extends State<AuthForm>
                     // if (!progressStarted)
                     FlatButton(
                       onPressed: () {
-                        setState(() {
-                          _showLoginVersion = !_showLoginVersion;
-                          if (_showLoginVersion) {
-                            _cardHeight = 380;
-                          } else {
-                            _cardHeight = 430;
-                          }
-                        });
+                        setState(
+                          () {
+                            _showLoginVersion = !_showLoginVersion;
+                            if (_showLoginVersion) {
+                              _cardHeight = 380;
+                            } else {
+                              _cardHeight = 430;
+                            }
+                          },
+                        );
                       },
                       child: Text(
                         _showLoginVersion
@@ -181,12 +186,13 @@ class _AuthFormState extends State<AuthForm>
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 10.0, right: 10.0),
-                              child: Divider(
-                                color: Colors.black,
-                                height: 36,
-                              )),
+                            margin:
+                                const EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: Divider(
+                              color: Colors.black,
+                              height: 36,
+                            ),
+                          ),
                         ),
                         Text("OR"),
                         Expanded(
@@ -228,7 +234,7 @@ class _AuthFormState extends State<AuthForm>
                                 child: const Text(
                                   'Continue with Google',
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

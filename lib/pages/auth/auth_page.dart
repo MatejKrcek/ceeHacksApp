@@ -1,7 +1,6 @@
+import 'package:ceehacks/pages/auth/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-
-import 'package:ceehacks/auth/auth_form.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -12,13 +11,14 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.red, Theme.of(context).primaryColor]),
+              colors: [Colors.grey, Theme.of(context).primaryColor]),
         ),
         child: SingleChildScrollView(
           child: Container(
@@ -36,18 +36,18 @@ class _AuthPageState extends State<AuthPage> {
                     transform: Matrix4.rotationZ(-8 * pi / 180)
                       ..translate(-10.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(35),
                       color: Theme.of(context).primaryColor,
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 8,
                           color: Colors.black26,
                           offset: Offset(0, 2),
-                        )
+                        ),
                       ],
                     ),
                     child: Text(
-                      'Piller app',
+                      'Piller',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 43,

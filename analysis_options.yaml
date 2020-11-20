@@ -7,7 +7,7 @@ dart_code_metrics:
     - long-method
   metrics:
     cyclomatic-complexity: 20
-    lines-of-executable-code: 60
+    lines-of-executable-code: 200
     number-of-arguments: 8
     number-of-methods: 25
   metrics-exclude:
