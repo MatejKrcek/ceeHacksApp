@@ -29,29 +29,31 @@ class Auth with ChangeNotifier {
     _firebaseAuth.authStateChanges().listen(_onAuthStateChanged);
   }
 
-  Future<String> signIn(String email, String password) async {
+  Future<String> signIn(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
     UserCredential result;
     try {
       result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on Exception catch (_) {
-      await this.signUp(email, password);
+      await this.signUp(name, email, password);
 
       return null;
     }
     _user = result.user;
     notifyListeners();
+    await _user.updateProfile(displayName: name);
 
     return _user.uid;
   }
 
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUp(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     _user = result.user;
     notifyListeners();
+    await _user.updateProfile(displayName: name);
 
     return _user.uid;
   }
@@ -113,10 +115,11 @@ class Auth with ChangeNotifier {
       _user = firebaseUser;
       notifyListeners();
       _dataListener = FirebaseFirestore.instance
-          .doc("users/" + firebaseUser.uid)
+          .collection("users")
+          .doc(firebaseUser.uid)
           .snapshots();
       _dataListener.listen((snap) {
-        if (snap != null && snap.data().isNotEmpty) {
+        if (snap != null && snap.exists && snap.data().isNotEmpty) {
           _userData = new UserData.fromMap(snap.data());
           notifyListeners();
         }

@@ -6,23 +6,22 @@ import { UserRecord } from "firebase-functions/lib/providers/auth";
 import { CallableContext } from "firebase-functions/lib/providers/https";
 
 export async function prepareProfile(user: UserRecord, cont: EventContext) {
-  const { uid, email, displayName, photoURL } = user;
+  const { uid } = user;
   await firestore()
     .collection("users")
     .doc(uid)
     .set({
-      email: email,
-      name: displayName || null,
-      photo: photoURL || null,
-      type: null
+      type: null,
     });
 }
 
 export async function changeUserType(data: any, context: CallableContext ) {
-  if (context.auth?.uid == null) {
+  const uid = context.auth?.uid;
+  if (!uid) {
     throw Error("missing uid");
+  } else {
+    await firestore().collection("user").doc(uid).update({
+      type: data.type,
+    });
   }
-  await firestore().collection("user").doc(context.auth?.uid).update({
-    type: data.type
-  });
 }

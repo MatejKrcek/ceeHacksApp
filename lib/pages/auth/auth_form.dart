@@ -1,4 +1,6 @@
+import 'package:ceehacks/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AuthForm extends StatefulWidget {
   @override
@@ -8,9 +10,10 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  // var _name = '';
-  // var _email = '';
-  // var _password = '';
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   bool _showLoginVersion = false;
   double _cardHeight = 430;
 
@@ -26,19 +29,23 @@ class _AuthFormState extends State<AuthForm>
     _passwordFocusNode.dispose();
   }
 
-  void _trySubmit() {
+  void _trySubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus(); //close opened keaboards
 
     if (isValid) {
       _formKey.currentState.save();
-      // Provider.of<Auth>(context, listen: false).signInWithMail(
-      //   _name.trim(),
-      //   _email.trim(),
-      //   _password.trim(),
-      //   _showLoginVersion,
-      //   context,
-      // );
+      if (_showLoginVersion) {
+        await Provider.of<Auth>(context, listen: false).signIn(
+            _nameController.value.text.trim(),
+            _emailController.value.text.trim(),
+            _passwordController.value.text.trim());
+      } else {
+        await Provider.of<Auth>(context, listen: false).signUp(
+            _nameController.value.text.trim(),
+            _emailController.value.text.trim(),
+            _passwordController.value.text.trim());
+      }
     }
   }
 
@@ -46,6 +53,7 @@ class _AuthFormState extends State<AuthForm>
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     // final progressStarted = Provider.of<Auth>(context).progess;
+
     return Center(
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -65,34 +73,34 @@ class _AuthFormState extends State<AuthForm>
                   children: <Widget>[
                     if (!_showLoginVersion)
                       TextFormField(
-                        key: ValueKey('name'),
-                        focusNode: _nameFocusNode,
-                        onFieldSubmitted: (_) {
-                          FocusScope.of(context).requestFocus(_emailFocusNode);
-                        },
-                        textCapitalization: TextCapitalization.words,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value.isEmpty || value.length < 2) {
-                            return 'Please enter a valid name';
-                          }
+                          key: ValueKey('name'),
+                          controller: _nameController,
+                          focusNode: _nameFocusNode,
+                          onFieldSubmitted: (_) {
+                            FocusScope.of(context)
+                                .requestFocus(_emailFocusNode);
+                          },
+                          textCapitalization: TextCapitalization.words,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 2) {
+                              return 'Please enter a valid name';
+                            }
 
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Your full name',
-                          hintText: 'Your full name',
-                          icon: Icon(Icons.person),
-                        ),
-                        onSaved: (value) {
-                          // _name = value;
-                        },
-                      ),
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Your full name',
+                            hintText: 'Your full name',
+                            icon: Icon(Icons.person),
+                          )),
                     TextFormField(
                       key: ValueKey('email'),
+                      controller: _emailController,
                       focusNode: _emailFocusNode,
                       textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value.isEmpty ||
                             value.length < 2 ||
@@ -107,15 +115,13 @@ class _AuthFormState extends State<AuthForm>
                         hintText: 'Email address',
                         icon: Icon(Icons.email),
                       ),
-                      onSaved: (value) {
-                        // _email = value;
-                      },
                       onFieldSubmitted: (_) {
                         FocusScope.of(context).requestFocus(_passwordFocusNode);
                       },
                     ),
                     TextFormField(
                       key: ValueKey('password'),
+                      controller: _passwordController,
                       enableSuggestions: false,
                       obscureText: true,
                       autocorrect: false,
@@ -134,9 +140,6 @@ class _AuthFormState extends State<AuthForm>
                         hintText: 'Password',
                         icon: Icon(Icons.lock),
                       ),
-                      onSaved: (value) {
-                        // _password = value;
-                      },
                     ),
                     SizedBox(
                       height: 12,
@@ -209,9 +212,9 @@ class _AuthFormState extends State<AuthForm>
                     Container(
                       margin: const EdgeInsets.only(top: 15),
                       child: OutlineButton(
-                        onPressed: () {
-                          // Provider.of<Auth>(context, listen: false)
-                          //     .signInWithGoogle();
+                        onPressed: () async {
+                          await Provider.of<Auth>(context, listen: false)
+                              .googleSignIn();
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
