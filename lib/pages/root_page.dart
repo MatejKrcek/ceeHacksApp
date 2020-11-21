@@ -1,6 +1,10 @@
 import 'package:ceehacks/pages/auth/auth_page.dart';
 import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
 import 'package:ceehacks/pages/main_menu_layout_page.dart';
+import 'package:ceehacks/pages/patient/patient_add_pill_page.dart';
+import 'package:ceehacks/pages/patient/patient_notification_screen.dart';
+import 'package:ceehacks/pages/patient/patient_pill_list_page.dart';
+import 'package:ceehacks/pages/patient/patient_search_pill.dart';
 import 'package:ceehacks/pages/select_role_page.dart';
 import 'package:ceehacks/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +37,10 @@ class RootPage extends StatelessWidget {
               } else {
                 if (auth.userData.type == null) {
                   return Navigator(
-                    initialRoute: '/',
+                    initialRoute: '/onboarding',
                     onGenerateRoute: (settings) {
                       switch (settings.name) {
-                        case '/':
+                        case '/onboarding':
                           return MaterialPageRoute(
                             builder: (BuildContext context) => SelectRolePage(),
                           );
@@ -56,7 +60,49 @@ class RootPage extends StatelessWidget {
                     },
                   );
                 } else {
-                  return MainMenuLayoutPage();
+                  return Navigator(
+                    initialRoute: '/',
+                    onGenerateRoute: (settings) {
+                      switch (settings.name) {
+                        case '/':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainMenuLayoutPage(),
+                          );
+                          break;
+                        case '/pill-list':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PatientPillsList(),
+                          );
+                          break;
+                        case '/notifications':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PatientNotificationScreen(),
+                          );
+                          break;
+                        case '/add-pill':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PatienAddPilScreen(),
+                          );
+                          break;
+                        case '/search-pill':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PatientSearchPill(),
+                          );
+                          break;
+                        default:
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                MainMenuLayoutPage(),
+                          );
+                          break;
+                      }
+                    },
+                  );
                 }
               }
               break;

@@ -26,7 +26,7 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
     });
   }
 
-   Future<void> _scanQR() async {
+  Future<void> _scanQR() async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -121,7 +121,9 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
                         Icons.playlist_add,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/search-pill');
+                      },
                       label: Text(
                         'Select pill',
                         style: TextStyle(

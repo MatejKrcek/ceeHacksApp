@@ -18,11 +18,10 @@ class Auth with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   AuthStatus _status = AuthStatus.NOT_DETERMINED;
 
-  User _user;
   UserData _userData;
 
   AuthStatus get status => _status;
-  User get user => _user;
+  User get user => _firebaseAuth.currentUser;
   UserData get userData => _userData;
 
   Auth.instance() {
@@ -40,22 +39,20 @@ class Auth with ChangeNotifier {
 
       return null;
     }
-    _user = result.user;
     notifyListeners();
-    await _user.updateProfile(displayName: name);
+    await _firebaseAuth.currentUser.updateProfile(displayName: name);
 
-    return _user.uid;
+    return _firebaseAuth.currentUser.uid;
   }
 
   Future<String> signUp(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
-    _user = result.user;
     notifyListeners();
-    await _user.updateProfile(displayName: name);
+    await _firebaseAuth.currentUser.updateProfile(displayName: name);
 
-    return _user.uid;
+    return _firebaseAuth.currentUser.uid;
   }
 
   Future<void> resetPassword(String email) async {
@@ -78,27 +75,26 @@ class Auth with ChangeNotifier {
         await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-    _user = (await _firebaseAuth.signInWithCredential(credential)).user;
     notifyListeners();
 
-    return _user.uid;
+    return _firebaseAuth.currentUser.uid;
   }
 
   Future<void> changePassword(String newPassword) async {
-    if (_user == null) {
+    if (_firebaseAuth.currentUser == null) {
       return;
     }
-    await _user.updatePassword(newPassword);
+    await _firebaseAuth.currentUser.updatePassword(newPassword);
   }
 
   bool isUserSignedByEmail() {
-    if (_user == null) {
+    if (_firebaseAuth.currentUser == null) {
       return false;
     }
-    if (_user.providerData.length > 1) {
+    if (_firebaseAuth.currentUser.providerData.length > 1) {
       return true;
     } else {
-      return _user.providerData[0].providerId == "password";
+      return _firebaseAuth.currentUser.providerData[0].providerId == "password";
     }
   }
 
@@ -112,7 +108,6 @@ class Auth with ChangeNotifier {
   Future<void> _onAuthStateChanged(User firebaseUser) async {
     if (firebaseUser != null) {
       _status = AuthStatus.LOGGED_IN;
-      _user = firebaseUser;
       notifyListeners();
       _dataListener = FirebaseFirestore.instance
           .collection("users")
@@ -125,7 +120,6 @@ class Auth with ChangeNotifier {
         }
       });
     } else {
-      _user = null;
       _status = AuthStatus.NOT_LOGGED_IN;
       notifyListeners();
     }

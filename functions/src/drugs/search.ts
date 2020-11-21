@@ -11,5 +11,5 @@ export async function search(body: any, res: CallableContext ) {
   };
   const [job] = await bigquery.createQueryJob(options);
   const [rows] = await job.getQueryResults();
-  return rows;
+  return JSON.stringify(rows);
 }

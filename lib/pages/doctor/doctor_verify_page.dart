@@ -24,13 +24,15 @@ class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
       var id = await Functions().getDoctorId(split[0], split[split.length - 1]);
       var holderid = _holder.value.text;
       if (id != holderid) {
-        //notify bad id
+        final snackBar = SnackBar(content: Text('Bad id'));
+        Scaffold.of(context).showSnackBar(snackBar);
       } else {
         var uid = Provider.of<Auth>(context, listen: false).user.uid;
         await Functions().changeUserType(
           uid,
           UserType.Doctor,
         );
+        await Navigator.pop(context);
       }
     }
   }
