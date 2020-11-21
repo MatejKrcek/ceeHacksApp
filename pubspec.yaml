@@ -28,6 +28,10 @@ dependencies:
 
   # Functionality
   provider: ^2.0.1
+  image_picker: ^0.6.3+4
+  path_provider: ^1.6.1
+  path: ^1.6.4
+  flutter_barcode_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:
