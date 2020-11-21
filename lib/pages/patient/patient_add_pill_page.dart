@@ -1,6 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class PatienAddPilScreen extends StatelessWidget {
+class PatienAddPilScreen extends StatefulWidget {
+  @override
+  _PatienAddPilScreenState createState() => _PatienAddPilScreenState();
+}
+
+class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
+  bool _hasImage = false;
+  String _scanBarcode = 'Unknown';
+
+  Future<void> _takePicture() async {
+    final picker = ImagePicker();
+    final imageFile = await picker.getImage(
+      source: ImageSource.camera,
+      maxWidth: 600,
+    );
+    if (imageFile == null) {
+      return;
+    }
+    setState(() {
+      _hasImage = true;
+    });
+  }
+
+   Future<void> _scanQR() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +95,7 @@ class PatienAddPilScreen extends StatelessWidget {
                         Icons.qr_code_scanner,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: _scanQR,
                       label: Text(
                         'Scan Barcode',
                         style: TextStyle(
@@ -66,7 +108,7 @@ class PatienAddPilScreen extends StatelessWidget {
                         Icons.camera,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: _takePicture,
                       label: Text(
                         'Take photo of pill',
                         style: TextStyle(
