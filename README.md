@@ -2,8 +2,7 @@
 
 App helping you track your doses
 
-![image](./screenshot.png)
-
+*This app was created during [SMART HEALTH HACKATHON PRAGUE](https://www.ceehacks.com/)*
 ## Before running
 
 This below are comments in progress
@@ -59,3 +58,7 @@ Deploy
 ```sh
 firebase deploy
 ```
+
+## Screenshot
+
+![image](./screenshot.png)
