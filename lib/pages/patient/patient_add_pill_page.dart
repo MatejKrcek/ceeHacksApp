@@ -9,8 +9,8 @@ class PatienAddPilScreen extends StatefulWidget {
 }
 
 class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
-  bool _hasImage = false;
-  String _scanBarcode = 'Unknown';
+  // bool _hasImage = false;
+  // String _scanBarcode = 'Unknown';
 
   Future<void> _takePicture() async {
     final picker = ImagePicker();
@@ -21,9 +21,9 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
     if (imageFile == null) {
       return;
     }
-    setState(() {
-      _hasImage = true;
-    });
+    // setState(() {
+    //   _hasImage = true;
+    // });
   }
 
   Future<void> _scanQR() async {
@@ -38,9 +38,9 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
 
     if (!mounted) return;
 
-    setState(() {
-      _scanBarcode = barcodeScanRes;
-    });
+    // setState(() {
+    //   _scanBarcode = barcodeScanRes;
+    // });
   }
 
   @override
@@ -136,7 +136,7 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
                         Icons.edit,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: null,
                       label: Text(
                         'Write pill name',
                         style: TextStyle(

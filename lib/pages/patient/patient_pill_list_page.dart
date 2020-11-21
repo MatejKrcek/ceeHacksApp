@@ -4,6 +4,7 @@ class PatientPillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('My Pills'),
@@ -24,14 +25,14 @@ class PatientPillsList extends StatelessWidget {
                   Icons.info,
                   color: theme.primaryColor,
                 ),
-                onPressed: () {},
+                onPressed: null,
               ),
             ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: null,
         tooltip: 'Add a new pill',
         //backgroundColor: theme.primaryColor,
         child: Icon(Icons.add),

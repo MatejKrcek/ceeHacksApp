@@ -30,9 +30,8 @@ class Auth with ChangeNotifier {
 
   Future<String> signIn(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
-    UserCredential result;
     try {
-      result = await _firebaseAuth.signInWithEmailAndPassword(
+      await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on Exception catch (_) {
       await this.signUp(name, email, password);
@@ -47,7 +46,7 @@ class Auth with ChangeNotifier {
 
   Future<String> signUp(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
-    UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
+    await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     notifyListeners();
     await _firebaseAuth.currentUser.updateProfile(displayName: name);
@@ -73,7 +72,7 @@ class Auth with ChangeNotifier {
     }
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
+    GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     notifyListeners();
 

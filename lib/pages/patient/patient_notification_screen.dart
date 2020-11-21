@@ -47,7 +47,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
                           color: Colors.green,
                         ),
                         label: Text('Yes, I took it!'),
-                        onPressed: () {},
+                        onPressed: null,
                       ),
                       FlatButton.icon(
                         icon: Icon(
@@ -55,7 +55,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
                           color: Colors.red,
                         ),
                         label: Text('No, I take it now'),
-                        onPressed: () {},
+                        onPressed: null,
                       ),
                     ],
                   ),
@@ -68,7 +68,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
                           color: Colors.amber,
                         ),
                         label: Text('Remind me in 10 minutes'),
-                        onPressed: () {},
+                        onPressed: null,
                       ),
                     ],
                   ),
@@ -130,7 +130,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

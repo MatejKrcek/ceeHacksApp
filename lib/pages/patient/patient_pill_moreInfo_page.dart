@@ -12,6 +12,7 @@ class _PatientPillMoreInfoPageState extends State<PatientPillMoreInfoPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Pill XXX - More Info'),
@@ -90,7 +91,7 @@ class _PatientPillMoreInfoPageState extends State<PatientPillMoreInfoPage> {
                     trailing: FlatButton.icon(
                       icon: Icon(Icons.calendar_today),
                       label: Text('Change day'),
-                      onPressed: () {},
+                      onPressed: null,
                     ),
                     title: Text(
                       'Every day at 16:00',

@@ -40,6 +40,7 @@ class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -101,6 +102,7 @@ class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
                               if (value.isEmpty || value.length < 9) {
                                 return 'Please enter your valid ID';
                               }
+
                               return null;
                             },
                           ),

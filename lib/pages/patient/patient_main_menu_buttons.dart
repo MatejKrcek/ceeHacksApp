@@ -100,7 +100,7 @@ class PatientMainMenuButtons extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  onPressed: () {},
+                  onPressed: null,
                 ),
               ),
             ],

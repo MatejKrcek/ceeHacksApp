@@ -1,5 +1,4 @@
 import 'package:ceehacks/model/user_types.dart';
-import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
 import 'package:ceehacks/services/auth.dart';
 import 'package:ceehacks/services/functions.dart';
 import 'package:flutter/material.dart';

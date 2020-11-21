@@ -17,6 +17,7 @@ class Functions {
       'jmeno': name,
       'prijmeni': surname,
     });
+
     return resp.data.toString().trim();
   }
 
