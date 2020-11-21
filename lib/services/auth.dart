@@ -28,7 +28,7 @@ class Auth with ChangeNotifier {
     _firebaseAuth.authStateChanges().listen(_onAuthStateChanged);
   }
 
-  Future<String> signIn(String name, String email, String password) async {
+  Future<void> signIn(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -40,18 +40,14 @@ class Auth with ChangeNotifier {
     }
     notifyListeners();
     await _firebaseAuth.currentUser.updateProfile(displayName: name);
-
-    return _firebaseAuth.currentUser.uid;
   }
 
-  Future<String> signUp(String name, String email, String password) async {
+  Future<void> signUp(String name, String email, String password) async {
     _status = AuthStatus.LOGGING_IN;
     await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     notifyListeners();
     await _firebaseAuth.currentUser.updateProfile(displayName: name);
-
-    return _firebaseAuth.currentUser.uid;
   }
 
   Future<void> resetPassword(String email) async {
@@ -64,7 +60,7 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> googleSignIn() async {
+  Future<void> googleSignIn() async {
     _status = AuthStatus.LOGGING_IN;
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
@@ -72,11 +68,10 @@ class Auth with ChangeNotifier {
     }
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    GoogleAuthProvider.credential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    await _firebaseAuth.signInWithCredential(credential);
     notifyListeners();
-
-    return _firebaseAuth.currentUser.uid;
   }
 
   Future<void> changePassword(String newPassword) async {
@@ -97,11 +92,8 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<String> anonymousSignIn() async {
-    final authResult = await FirebaseAuth.instance.signInAnonymously();
-    final firebaseUser = authResult.user;
-
-    return firebaseUser.uid;
+  Future<void> anonymousSignIn() async {
+    await FirebaseAuth.instance.signInAnonymously();
   }
 
   Future<void> _onAuthStateChanged(User firebaseUser) async {

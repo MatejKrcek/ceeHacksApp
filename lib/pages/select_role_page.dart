@@ -66,6 +66,7 @@ class SelectRolePage extends StatelessWidget {
                           uid,
                           UserType.Pacient,
                         );
+                        await Navigator.pushReplacementNamed(context, '/');
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

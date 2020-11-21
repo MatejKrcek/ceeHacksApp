@@ -1,3 +1,5 @@
+import 'package:ceehacks/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PatientPillsList extends StatelessWidget {
@@ -13,29 +15,30 @@ class PatientPillsList extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => Card(
-            elevation: 6,
-            child: ListTile(
-              title: Text('Ibalgin'),
-              subtitle: Text('Ibuprofen'),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.info,
-                  color: theme.primaryColor,
-                ),
-                onPressed: null,
-              ),
-            ),
-          ),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: Database().getYourCurrentPills(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+
+            return new ListView(
+              children:
+                  snapshot.data.documents.map((DocumentSnapshot document) {
+                return Card(
+                  child: ListTile(
+                    title: new Text(document.data()['name']),
+                  ),
+                );
+              }).toList(),
+            );
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Add a new pill',
-        //backgroundColor: theme.primaryColor,
-        child: Icon(Icons.add),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:ceehacks/pages/auth/auth_page.dart';
 import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
 import 'package:ceehacks/pages/main_menu_layout_page.dart';
 import 'package:ceehacks/pages/patient/patient_add_pill_page.dart';
+import 'package:ceehacks/pages/patient/patient_graphs_page.dart';
 import 'package:ceehacks/pages/patient/patient_notification_screen.dart';
 import 'package:ceehacks/pages/patient/patient_pill_list_page.dart';
 import 'package:ceehacks/pages/patient/patient_search_pill.dart';
@@ -86,6 +87,12 @@ class RootPage extends StatelessWidget {
                           return MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 PatienAddPilScreen(),
+                          );
+                          break;
+                        case '/statistics':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PatientGraphsPage(),
                           );
                           break;
                         case '/search-pill':

@@ -10,5 +10,8 @@ service cloud.firestore {
     match /users/{userId}/pacients/{pacientId} {
       allow read: if request.auth.uid == userId;
     }
+    match /users/{userId}/drugs/{drugId} {
+      allow read, write: if request.auth.uid == userId;
+    }
   }
 }

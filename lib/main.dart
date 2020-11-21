@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Piller',
       theme: ThemeData(
-        primaryColor: Color(0xFF035AA6),
-        accentColor: Colors.deepOrange,
+        primarySwatch: Colors.blue,
+        accentColor: Colors.lightGreen,
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,

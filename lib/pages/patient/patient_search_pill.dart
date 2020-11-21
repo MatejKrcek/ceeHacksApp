@@ -1,3 +1,4 @@
+import 'package:ceehacks/services/database.dart';
 import 'package:ceehacks/services/functions.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,12 @@ class _PatientSearchPillState extends State<PatientSearchPill> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    onTap: () async {
+                      await Database()
+                          .addPillToUser(items[index]['lp_nazev_reg']);
+                      Navigator.pop(context);
+                    },
+                    trailing: Icon(Icons.arrow_forward_ios),
                     title: Text(
                         '${items[index]['lp_nazev_reg']} ${items[index]['lp_baleni']}'),
                     subtitle: Text('${items[index]['vpois_nazev']}'),

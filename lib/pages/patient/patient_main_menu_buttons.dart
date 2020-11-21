@@ -89,7 +89,7 @@ class PatientMainMenuButtons extends StatelessWidget {
                 ),
                 child: FlatButton(
                   child: const Text(
-                    'Go to settings',
+                    'Statistics',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -100,7 +100,9 @@ class PatientMainMenuButtons extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/statistics');
+                  },
                 ),
               ),
             ],
