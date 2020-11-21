@@ -10,21 +10,21 @@ export async function verify(body: any, res: CallableContext ) {
   formData.append('filterPrijmeni', prijmeni);
   formData.append('filterjmeno', jmeno);
   const resp = await Axios.post('https://www.lkcr.cz/seznam-lekaru-426.html', formData, {
-    headers: formData.getHeaders()
+    headers: formData.getHeaders(),
   });
 
-  var string = resp.data.toString();
+  const string = resp.data.toString();
 
-  var start = string.lastIndexOf("?filterId=")
-  var end = string.lastIndexOf(";do[load]=1");
-  var id = string.substr(start  ,end-start);
+  const start = string.lastIndexOf("?filterId=")
+  const end = string.lastIndexOf(";do[load]=1");
+  const id = string.substr(start  ,end-start);
   const url = 'https://www.lkcr.cz/seznam-lekaru-426.html' + id + '&do[load]=1';
   const respfinal = await Axios.get(url);
 
   const stringev = respfinal.data.toString();
-  var startev = stringev.lastIndexOf('class="evcislo"')
-  var ev = stringev.substr(startev  ,50);
-  var replace = ev.replace('class="evcislo">Evidenční číslo: ', '');
-  var evfinal = replace.replace('</div>', '');
+  const startev = stringev.lastIndexOf('class="evcislo"')
+  const ev = stringev.substr(startev  ,50);
+  const replace = ev.replace('class="evcislo">Evidenční číslo: ', '');
+  const evfinal = replace.replace('</div>', '');
   return evfinal;
 }
