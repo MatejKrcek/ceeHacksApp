@@ -1,10 +1,8 @@
 import Axios from "axios";
-import { Request } from "firebase-functions";
 import { CallableContext } from "firebase-functions/lib/providers/https";
 import FormData = require("form-data");
 
-export async function verify(req: Request, res: CallableContext ) {
-  const body = JSON.parse(req.body);
+export async function verify(body: any, res: CallableContext ) {
   const jmeno = body['jmeno'];
   const prijmeni = body['prijmeni'];
 
