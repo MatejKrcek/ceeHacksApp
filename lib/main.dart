@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 //! home: RootPage(),
 import 'package:ceehacks/pages/main_menu_layout_page.dart';
 import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
+import 'package:ceehacks/pages/patient/patient_add_pill_page.dart';
 import 'package:ceehacks/pages/patient/patient_pill_list_page.dart';
 
 void main() async {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PatientPillsList(),
+      home: PatienAddPilScreen()
     );
   }
 }
