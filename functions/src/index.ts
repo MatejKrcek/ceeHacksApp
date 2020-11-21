@@ -6,6 +6,7 @@ admin.initializeApp();
 import * as users from "./user";
 import * as doctor from "./doctor";
 import * as doctorUser from './doctor-user';
+import * as drug from './drugs';
 
 /**
  * Generate profile of user
@@ -28,3 +29,8 @@ export const doctorVerify = functions.https.onCall(async (req, cont) => await do
  * Connected doctor with user
  */
 export const doctorUserConnect = functions.https.onCall(async (req, cont) => await doctorUser.connect(req, cont));
+ 
+/**
+ * Drug search
+ */
+export const drugSearch = functions.https.onCall(async (req, cont) => drug.search(req, cont));
