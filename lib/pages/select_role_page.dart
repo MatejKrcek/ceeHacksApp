@@ -1,11 +1,16 @@
+import 'package:ceehacks/model/user_types.dart';
+import 'package:ceehacks/services/auth.dart';
+import 'package:ceehacks/services/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class SelectRolePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: AppBar(
@@ -54,7 +59,14 @@ class SelectRolePage extends StatelessWidget {
                     width: 300,
                     margin: const EdgeInsets.only(top: 15),
                     child: OutlineButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var uid =
+                            Provider.of<Auth>(context, listen: false).user.uid;
+                        await Functions().changeUserType(
+                          uid,
+                          UserType.Pacient,
+                        );
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -96,7 +108,14 @@ class SelectRolePage extends StatelessWidget {
                     width: 300,
                     margin: const EdgeInsets.only(top: 15),
                     child: OutlineButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var uid =
+                            Provider.of<Auth>(context, listen: false).user.uid;
+                        await Functions().changeUserType(
+                          uid,
+                          UserType.Doctor,
+                        );
+                      },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -135,42 +154,6 @@ class SelectRolePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 50,
-            ),
-            Container(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'I am',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 120,
-            ),
-          ],
-        ),
       ),
     );
   }
