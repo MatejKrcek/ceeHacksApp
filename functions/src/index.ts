@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 admin.initializeApp();
 
 import * as users from "./user";
+import * as doctor from "./doctor";
 
 /**
  * Generate profile of user
@@ -16,3 +17,8 @@ export const userProfileGeneration = functions.auth
  * Change typ of user
  */
 export const userChangeType = functions.https.onCall(async (data, cont) => await users.changeUserType(data, cont));
+
+/**
+ * Verify doctor
+ */
+export const doctorVerify = functions.https.onCall(async (req, cont) => await doctor.verify(req, cont))
