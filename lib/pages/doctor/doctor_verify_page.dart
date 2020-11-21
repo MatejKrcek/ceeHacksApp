@@ -1,5 +1,9 @@
+import 'package:ceehacks/model/user_types.dart';
+import 'package:ceehacks/services/auth.dart';
+import 'package:ceehacks/services/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class DoctorVerifyPage extends StatefulWidget {
   @override
@@ -7,10 +11,33 @@ class DoctorVerifyPage extends StatefulWidget {
 }
 
 class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _holder = TextEditingController();
+
+  void _trySubmit() async {
+    final isValid = _formKey.currentState.validate();
+
+    if (isValid) {
+      _formKey.currentState.save();
+      var userData = Provider.of<Auth>(context, listen: false).user;
+      var split = userData.displayName.split(' ');
+      var id = await Functions().getDoctorId(split[0], split[split.length - 1]);
+      var holderid = _holder.value.text;
+      if (id != holderid) {
+        //notify bad id
+      } else {
+        var uid = Provider.of<Auth>(context, listen: false).user.uid;
+        await Functions().changeUserType(
+          uid,
+          UserType.Doctor,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -51,26 +78,30 @@ class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
                       width: deviceSize.width * 0.8,
                       child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: TextFormField(
-                          textCapitalization: TextCapitalization.none,
-                          autocorrect: false,
-                          enableSuggestions: false,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          decoration: InputDecoration(
-                            labelText: 'Enter your ID',
-                            hintText: 'Enter your ID',
-                            icon: Icon(Icons.assignment_ind),
+                        child: Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            controller: _holder,
+                            textCapitalization: TextCapitalization.none,
+                            autocorrect: false,
+                            key: ValueKey('data'),
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            decoration: InputDecoration(
+                              labelText: 'Enter your ID',
+                              hintText: 'Enter your ID',
+                              icon: Icon(Icons.assignment_ind),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty || value.length < 9) {
+                                return 'Please enter your valid ID';
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value.isEmpty || value.length < 9) {
-                              return 'Please enter your valid ID';
-                            }
-
-                            return null;
-                          },
                         ),
                       ),
                     ),
@@ -81,7 +112,7 @@ class _DoctorVerifyPageState extends State<DoctorVerifyPage> {
                           'Verify',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {},
+                        onPressed: _trySubmit,
                         color: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

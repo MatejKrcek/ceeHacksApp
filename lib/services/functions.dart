@@ -9,4 +9,12 @@ class Functions {
       'type': userType.value,
     });
   }
+
+  Future<String> getDoctorId(String name, String surname) async {
+    var resp = await _functions.httpsCallable('doctorVerify').call({
+      'jmeno': name,
+      'prijmeni': surname,
+    });
+    return resp.data.toString().trim();
+  }
 }

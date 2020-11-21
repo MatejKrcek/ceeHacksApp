@@ -1,4 +1,5 @@
 import 'package:ceehacks/pages/auth/auth_page.dart';
+import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
 import 'package:ceehacks/pages/main_menu_layout_page.dart';
 import 'package:ceehacks/pages/select_role_page.dart';
 import 'package:ceehacks/services/auth.dart';
@@ -31,7 +32,29 @@ class RootPage extends StatelessWidget {
                 return _buildWaitingScreen();
               } else {
                 if (auth.userData.type == null) {
-                  return SelectRolePage();
+                  return Navigator(
+                    initialRoute: '/',
+                    onGenerateRoute: (settings) {
+                      switch (settings.name) {
+                        case '/':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) => SelectRolePage(),
+                          );
+                          break;
+                        case '/doctor-verify':
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                DoctorVerifyPage(),
+                          );
+                          break;
+                        default:
+                          return MaterialPageRoute(
+                            builder: (BuildContext context) => SelectRolePage(),
+                          );
+                          break;
+                      }
+                    },
+                  );
                 } else {
                   return MainMenuLayoutPage();
                 }

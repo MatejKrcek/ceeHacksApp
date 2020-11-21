@@ -1,4 +1,5 @@
 import 'package:ceehacks/model/user_types.dart';
+import 'package:ceehacks/pages/doctor/doctor_verify_page.dart';
 import 'package:ceehacks/services/auth.dart';
 import 'package:ceehacks/services/functions.dart';
 import 'package:flutter/material.dart';
@@ -109,12 +110,7 @@ class SelectRolePage extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 15),
                     child: OutlineButton(
                       onPressed: () async {
-                        var uid =
-                            Provider.of<Auth>(context, listen: false).user.uid;
-                        await Functions().changeUserType(
-                          uid,
-                          UserType.Doctor,
-                        );
+                        await Navigator.pushNamed(context, '/doctor-verify');
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
