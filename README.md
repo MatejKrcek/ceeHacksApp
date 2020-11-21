@@ -1,16 +1,61 @@
-# ceehacks
+# Piller app
 
-A new Flutter project.
+App helping you track your doses
 
-## Getting Started
+![image](./screenshot.png)
 
-This project is a starting point for a Flutter application.
+## Before running
 
-A few resources to get you started if this is your first Flutter project:
+This below are comments in progress
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Install Dart
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+ brew tap dart-lang/dart
+ brew install dart
+```
+
+Install Flutter
+
+[Flutter installation guide](https://flutter.dev/docs/get-started/install)
+
+Check metrics
+
+```sh
+pub global activate dart_code_metrics
+```
+
+## Running tests locally
+
+Widget tests
+
+```sh
+flutter test widget
+```
+
+Unit tests
+
+```sh
+flutter test unit
+```
+
+Analyze code
+
+```sh
+flutter analyze
+metrics lib
+```
+
+## Developing firebase
+
+Tools:
+
+```sh
+npm install -g firebase-tools
+```
+
+Deploy
+
+```sh
+firebase deploy
+```
