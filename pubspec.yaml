@@ -42,6 +42,8 @@ flutter:
     - assets/google_logo.png
     - assets/doctor_icon.png
     - assets/doctor_icon.svg
+    - assets/sad.svg
+    - assets/happy.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
