@@ -34,3 +34,8 @@ export const doctorUserConnect = functions.https.onCall(async (req, cont) => awa
  * Drug search
  */
 export const drugSearch = functions.https.onCall(async (req, cont) => drug.search(req, cont));
+
+/**
+ * Set user token
+ */
+export const userNotificationToken = functions.https.onCall(async (data, cont) => users.setUserNotifToken(data, cont));

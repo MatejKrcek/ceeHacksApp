@@ -28,4 +28,10 @@ class Functions {
 
     return json.decode(resp.data);
   }
+
+  Future<void> setUserNotifToken(String token) async {
+    await _functions.httpsCallable('userNotificationToken').call({
+      'token': token,
+    });
+  }
 }

@@ -26,3 +26,15 @@ export async function changeUserType(data: any, context: CallableContext ) {
     return true;
   }
 }
+
+export async function setUserNotifToken(data: any, context: CallableContext) {
+  const token = data['token'];
+  const uid = context.auth?.uid;
+  if (!uid) {
+    throw Error("missing uid");
+  } else {
+    await firestore().collection("users").doc(uid).update({
+      'token': token,
+    })
+  }
+}

@@ -1,8 +1,41 @@
+import 'package:ceehacks/services/functions.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ceehacks/pages/patient/patient_main_menu_buttons.dart';
 
-class MainMenuLayoutPage extends StatelessWidget {
+class MainMenuLayoutPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MainMenuLayoutPageState();
+  }
+}
+
+class _MainMenuLayoutPageState extends State<MainMenuLayoutPage> {
+  void checkNotifications() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    var resp = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    if (resp.authorizationStatus == AuthorizationStatus.authorized) {
+      var token = await messaging.getToken();
+      await Functions().setUserNotifToken(token);
+    }
+  }
+
+  @override
+  void initState() {
+    checkNotifications();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

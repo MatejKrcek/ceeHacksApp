@@ -1,1 +1,1 @@
-export { prepareProfile, changeUserType } from "./profile";
+export { prepareProfile, changeUserType, setUserNotifToken } from "./profile";
