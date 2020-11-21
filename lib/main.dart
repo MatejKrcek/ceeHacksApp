@@ -1,7 +1,7 @@
-import 'package:ceehacks/pages/root_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ceehacks/pages/patient/patient_add_pill_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,15 +20,14 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MaterialApp(
-      title: 'Piller',
-      theme: ThemeData(
-        primaryColor: Color(0xFF035AA6),
-        accentColor: Colors.deepOrange,
-        backgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: RootPage(),
-    );
+        title: 'Piller',
+        theme: ThemeData(
+          primaryColor: Color(0xFF035AA6),
+          accentColor: Colors.deepOrange,
+          backgroundColor: Colors.white,
+          scaffoldBackgroundColor: Colors.white,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: PatienAddPilScreen());
   }
 }
