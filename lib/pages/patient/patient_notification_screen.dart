@@ -125,7 +125,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
             FlatButton(
               onPressed: null, //hasValue ? () {} : null,
               child: Text(
-                'Save',
+                'Back to Home Screen',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),
