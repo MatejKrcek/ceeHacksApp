@@ -3,6 +3,8 @@
 App helping you track your doses
 
 *This app was created during [SMART HEALTH HACKATHON PRAGUE](https://www.ceehacks.com/)*
+
+**Wanna be a android tester: [link](https://appdistribution.firebase.dev/i/0968fbb7c7f14c29)**
 ## Before running
 
 This below are comments in progress
