@@ -18,7 +18,7 @@ class _AuthPageState extends State<AuthPage> {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.grey, Theme.of(context).primaryColor]),
+              colors: [Theme.of(context).primaryColor, Colors.white]),
         ),
         child: SingleChildScrollView(
           child: Container(
@@ -37,6 +37,7 @@ class _AuthPageState extends State<AuthPage> {
                       ..translate(-10.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
+                      border: Border.all(color: Colors.black),
                       color: Theme.of(context).primaryColor,
                       boxShadow: [
                         BoxShadow(

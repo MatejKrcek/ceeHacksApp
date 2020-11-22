@@ -1,3 +1,4 @@
+import 'package:ceehacks/pages/patient/patient_search_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -121,9 +122,10 @@ class _PatienAddPilScreenState extends State<PatienAddPilScreen> {
                         Icons.playlist_add,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/search-pill');
-                      },
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext) => PatientSearchPill())),
                       label: Text(
                         'Select pill',
                         style: TextStyle(

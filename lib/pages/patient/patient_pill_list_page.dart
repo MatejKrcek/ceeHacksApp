@@ -1,3 +1,4 @@
+import 'package:ceehacks/pages/patient/patient_pill_moreInfo_page.dart';
 import 'package:ceehacks/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,6 @@ import 'package:flutter/material.dart';
 class PatientPillsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('My Pills'),
@@ -33,6 +32,11 @@ class PatientPillsList extends StatelessWidget {
                 return Card(
                   child: ListTile(
                     title: new Text(document.data()['name']),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext) =>
+                                PatientPillMoreInfoPage())),
                   ),
                 );
               }).toList(),

@@ -1,8 +1,10 @@
+import 'package:ceehacks/pages/patient/patient_add_pill_page.dart';
+import 'package:ceehacks/pages/patient/patient_graphs_page.dart';
+import 'package:ceehacks/pages/patient/patient_notification_screen.dart';
+import 'package:ceehacks/pages/patient/patient_pill_list_page.dart';
 import 'package:ceehacks/services/functions.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
-import 'package:ceehacks/pages/patient/patient_main_menu_buttons.dart';
 
 class MainMenuLayoutPage extends StatefulWidget {
   @override
@@ -12,6 +14,37 @@ class MainMenuLayoutPage extends StatefulWidget {
 }
 
 class _MainMenuLayoutPageState extends State<MainMenuLayoutPage> {
+  int _currentIndex = 0;
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  List<BottomNavigationBarItem> _bottomItems() {
+    List<BottomNavigationBarItem> items = [];
+    items.addAll([
+      BottomNavigationBarItem(
+        icon: Icon(Icons.list),
+        label: "List",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.add),
+        label: "Add",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.notifications),
+        label: "Notifications",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.graphic_eq),
+        label: "Statistics",
+      ),
+    ]);
+    return items;
+  }
+
   void checkNotifications() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
@@ -36,57 +69,36 @@ class _MainMenuLayoutPageState extends State<MainMenuLayoutPage> {
     super.initState();
   }
 
+  getCurrentBody(int index) {
+    switch (_currentIndex) {
+      case 0:
+        return PatientPillsList();
+        break;
+      case 1:
+        return PatienAddPilScreen();
+        break;
+      case 2:
+        return PatientNotificationScreen();
+        break;
+      case 3:
+        return PatientGraphsPage();
+        break;
+      default:
+        return PatientPillsList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
-      backgroundColor: theme.primaryColor,
-      appBar: AppBar(
-        backgroundColor: theme.primaryColor,
-        automaticallyImplyLeading: false,
-        elevation: 0,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        onTap: onTabTapped,
+        items: _bottomItems(),
       ),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: const Text(
-                  'I want to',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 70,
-          ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
-                  ),
-                ),
-                PatientMainMenuButtons(),
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: getCurrentBody(_currentIndex),
     );
   }
 }
