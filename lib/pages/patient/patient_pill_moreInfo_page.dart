@@ -40,8 +40,7 @@ class _PatientPillMoreInfoPageState extends State<PatientPillMoreInfoPage> {
               child: Column(
                 children: [
                   ListTile(
-                    title: Text('Name'),
-                    subtitle: Text('Subtitle'),
+                    title: Text('TAGRISSO'),
                     trailing: Text.rich(
                       TextSpan(
                         children: [
