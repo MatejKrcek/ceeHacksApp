@@ -14,7 +14,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pill XXX - More Info'),
+        title: Text('Notifications'),
         elevation: 0,
         centerTitle: true,
       ),
@@ -125,7 +125,7 @@ class _PatientNotificationScreenState extends State<PatientNotificationScreen> {
             FlatButton(
               onPressed: null, //hasValue ? () {} : null,
               child: Text(
-                'Back to Home Screen',
+                'Save',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),
